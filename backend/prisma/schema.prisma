@@ -20,11 +20,38 @@ enum Gender{
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  email     String     @unique
   gender    Gender?
   password  String?
-  googleId  String?   @unique
+  googleId  String?    @unique
+  property  Property[]
 }
 
+model Property {
+  id            Int       @id @default(autoincrement())
+  user_id       Int
+  title         String
+  smallDesc     String?
+  detailedDesc  String?
+  price         Int
+  propertyType  String
+  category      String
+  address       String
+  city          String
+  state         String
+  pincode       String
+  landmarks     String?
+
+  user          User       @relation(fields: [user_id], references: [id])
+  images        Image[]
+}
+
+model Image {
+  id          Int      @id @default(autoincrement())
+  property_id Int
+  image_url   String
+
+  property    Property @relation(fields: [property_id], references: [id])
+}
