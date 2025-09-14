@@ -4,12 +4,21 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 export default function FeatureCards() {
     const features = [
       { title: "Buy", desc: "Find the perfect home for you.", image : "/images/villa.jpg" },
-      { title: "Sell", desc: "List your property and reach buyers." , image: ""},
-      { title: "Post", desc: "Share opportunities in your area.", image : "" },
+      { title: "Sell", desc: "List your property and reach buyers." , image: "/images/House1.jpg"},
+      { title: "Post", desc: "Share opportunities in your area.", image : "/images/house3.jpg" },
     ]
   
     return (
-        <section className="relative z-20 flex min-h-screen items-center justify-center bg-gray-50 px-6 py-16">
+        <section className="relative z-20  min-h-screen items-center justify-center bg-gray-50 px-6 py-16">
+            <div className="text-center mb-3">
+                <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900 font-sans">
+                    Features
+                </h1>
+                <p className="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">
+                    Discover the mode that you prefer.
+                </p>
+            </div>
+
         <div className="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
           {features.map((f, i) => (
             <motion.div
@@ -21,7 +30,6 @@ export default function FeatureCards() {
             >
               <CardContainer className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
                 <CardBody className="p-6 flex flex-col gap-4 h-full">
-                  {/* Title */}
                   <CardItem translateZ="50" className="text-xl font-semibold text-gray-800">
                     {f.title}
                   </CardItem>
@@ -30,7 +38,6 @@ export default function FeatureCards() {
                     {f.desc}
                   </CardItem>
       
-                  {/* Image */}
                   <CardItem translateZ="80" className="flex-1">
                     <img
                       src={f.image}
@@ -38,8 +45,7 @@ export default function FeatureCards() {
                       className="h-56 w-full object-cover rounded-xl group-hover/card:shadow-lg"
                     />
                   </CardItem>
-      
-                  {/* CTA */}
+
                   <CardItem
                     translateZ="60"
                     as="button"
