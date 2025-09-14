@@ -46,6 +46,7 @@ export default function OwnersModal() {
   const [formData, setFormData] = useState({
     title: "",
     detailedDesc: "",
+    smallDesc:"",
     price: "",
     propertyType: "Rent",
     propertyCategory: "Apartment",
@@ -56,8 +57,10 @@ export default function OwnersModal() {
     landmarks: "",
     images: [],
   });
+  const [cardData, setCardData] = useState([]);
 
   const sensors = useSensors(useSensor(PointerSensor));
+  const token = localStorage.getItem('token');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,6 +97,29 @@ export default function OwnersModal() {
       }));
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+         const {title, smallDesc, detailedDesc,price, propertyType, propertyCategory, address, city, pincode, landmarks} = formData;
+         const response = await fetch('/property/data', {
+            method : "POST",
+            headers : {'Authorization' : token,
+                        'Content-Type' : 'application/json'
+                      },
+            body : JSON.stringify({title:title, smallDesc : smallDesc, detailedDesc : detailedDesc, price : price, propertyType : propertyType, propertyCategory : propertyCategory, address: address, city : city, pincode : pincode, landmarks : landmarks})
+         });
+
+         const data = await response.json();
+         setCardData(prev => [...prev,data]);
+
+        
+    } catch (err) {
+        console.log(err.message)
+        
+    }
+
+  }
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 3));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
@@ -144,6 +170,13 @@ export default function OwnersModal() {
                   placeholder="Title"
                   className="w-full border p-2 rounded"
                   value={formData.title}
+                  onChange={handleChange}
+                />
+                <textarea
+                  name="detailedDesc"
+                  placeholder="Small Description(ex : 4BHK, 4 Bathrooms etc..)"
+                  className="w-full border p-2 rounded"
+                  value={formData.smallDesc}
                   onChange={handleChange}
                 />
         
@@ -317,7 +350,7 @@ export default function OwnersModal() {
                 </button>
               ) : (
                 <button
-                  onClick={() => console.log(formData)}
+                  onClick={handleSubmit}
                   className="ml-auto px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                 >
                   Submit
