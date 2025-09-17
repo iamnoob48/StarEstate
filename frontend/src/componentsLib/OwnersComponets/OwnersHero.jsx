@@ -31,7 +31,10 @@ function OwnersHero() {
           Easily create, manage, and showcase your property listings in one
           place. Start listing today and connect with buyers & tenants.
         </p>
+        <div className='flex justify-center'>
         <OwnersModal/>
+        </div>
+        
       </div>
     </motion.section>
       
