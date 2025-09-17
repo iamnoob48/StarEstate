@@ -6,10 +6,10 @@ import OwnersGrid from '../componentsLib/OwnersComponets/OwnersGrid'
 function OwnersPage() {
   return (
     <div>
-        <div className="fixed top-0 left-0 w-full z-50 bg-white backdrop-blur-2xl shadow">
+        <div className="fixed top-0 left-0 w-full z-40 bg-white backdrop-blur-2xl shadow">
         <NavBar />
       </div>
-        <OwnersHero/>
+       <div className='z-[100]'><OwnersHero/></div>
         <OwnersGrid/>
       
     </div>

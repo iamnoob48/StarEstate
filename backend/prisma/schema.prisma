@@ -38,13 +38,22 @@ model Property {
   price         Int
   propertyType  String
   category      String
+  area          Int       @default(0)
+  bedrooms      Int       @default(0)
+  bathrooms     Int       @default(0)
+  balconies     Int?
+  floor         Int?
+  totalFloors   Int?
+  furnishing    String?
+  parking       String?
   address       String
   city          String
   state         String
   pincode       String
   landmarks     String?
+  isDeleted     Boolean   @default(false)
 
-  user          User       @relation(fields: [user_id], references: [id])
+  user          User      @relation(fields: [user_id], references: [id])
   images        Image[]
 }
 

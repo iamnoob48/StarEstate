@@ -8,7 +8,8 @@ export default defineConfig({
   server : {
     proxy : {
       '/api' : 'http://localhost:4003',
-      '/auth' : 'http://localhost:4003'
+      '/auth' : 'http://localhost:4003',
+      '/property' : 'http://localhost:4003'
     }
 
   },

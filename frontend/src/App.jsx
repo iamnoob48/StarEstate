@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp.jsx'
 import Feed from './pages/Feed'
 import OwnersPage from './pages/OwnersPage'
 import AuthSuccess from './pages/AuthSuccess'
+import PropertyPage from './pages/PropertyPage.jsx'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/feed' element={<Feed/>}/>
         <Route path='/owners' element={<OwnersPage/>}/>
         <Route path='/success' element={<AuthSuccess/>}/>
+        <Route path='/owners/property/:id' element= {<PropertyPage/>}/>
       </Routes>
 
     

@@ -29,6 +29,7 @@ function NavBar() {
   const [username, setUsername] = useState("");
   const handleClick = () => {
     localStorage.removeItem('token')
+    window.location.reload();
   }
 
   const fetchUsername = async () => {
@@ -45,7 +46,7 @@ function NavBar() {
   },[username])
 
   return (
-    <div className="relative w-full p-4">
+    <div className="w-full p-3">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
@@ -59,9 +60,9 @@ function NavBar() {
             <div className="flex items-center gap-3">
             <button
              onClick={handleClick}
-              className="flex items-center gap-2 px-3 py-1 rounded-full bg-white hover:bg-gray-700 transition"
+              className="relative z-50 flex items-center gap-2 px-3 py-1 rounded-full bg-white hover:bg-gray-700 transition"
             >
-              <UserCircleIcon className="h-8 w-8 text-amber-400" />
+              <UserCircleIcon className="h-8 w-8 text-amber-400 hover:cursor-pointer" />
               <span className="text-sm font-medium text-black">
                 {username}
               </span>
