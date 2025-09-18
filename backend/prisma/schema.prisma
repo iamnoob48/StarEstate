@@ -46,16 +46,24 @@ model Property {
   totalFloors   Int?
   furnishing    String?
   parking       String?
+  
   address       String
   city          String
   state         String
   pincode       String
   landmarks     String?
+
+  // new fields for contact info
+  contactName   String?
+  contactPhone  String?
+  contactEmail  String?
+
   isDeleted     Boolean   @default(false)
 
   user          User      @relation(fields: [user_id], references: [id])
   images        Image[]
 }
+
 
 model Image {
   id          Int      @id @default(autoincrement())

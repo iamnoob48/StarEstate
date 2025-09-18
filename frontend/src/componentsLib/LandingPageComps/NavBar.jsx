@@ -41,7 +41,11 @@ function NavBar() {
   }
 
   useEffect(()=>{
-    fetchUsername();
+    if(token){
+      fetchUsername();
+
+    }
+    
 
   },[username])
 

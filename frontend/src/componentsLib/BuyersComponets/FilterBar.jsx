@@ -42,7 +42,7 @@ function FilterBar() {
             {openFilter === "type" && (
               <div className="absolute mt-2 w-44 bg-white border rounded-lg shadow-lg p-2 z-40">
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li className="hover:text-amber-600 cursor-pointer">Apartment</li>
+                  <button className="hover:text-amber-600 cursor-pointer" >Apartment</button>
                   <li className="hover:text-amber-600 cursor-pointer">Villa</li>
                   <li className="hover:text-amber-600 cursor-pointer">Plot</li>
                   <li className="hover:text-amber-600 cursor-pointer">Commercial</li>

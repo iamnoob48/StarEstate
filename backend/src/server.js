@@ -4,6 +4,7 @@ import './config/passportConfig.js'
 import auth from './middleware/auth.js';
 import apiRoutes from './api/apiRoutes.js'
 import propertyRoutes from './routes/propertyRoutes.js'
+import buyersRoutes from './routes/buyersRoutes.js'
 
 
 
@@ -17,7 +18,8 @@ app.use(express.json());
 app.use('/auth', authRoutes)
 
 app.use('/api',auth, apiRoutes)
-
+//Buyers Route
+app.use('/buyersData',buyersRoutes)
 //CRUD routes
 app.use('/property', auth, propertyRoutes)
 

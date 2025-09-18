@@ -9,7 +9,9 @@ export default defineConfig({
     proxy : {
       '/api' : 'http://localhost:4003',
       '/auth' : 'http://localhost:4003',
-      '/property' : 'http://localhost:4003'
+      '/property' : 'http://localhost:4003',
+      '/buyersData' : "http://localhost:4003",
+      '/propertydetails': 'http://localhost:4003'
     }
 
   },

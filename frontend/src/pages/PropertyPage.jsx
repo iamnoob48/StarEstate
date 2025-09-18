@@ -27,6 +27,7 @@ function PropertyDetails() {
     furnishing : "",
     parking : "",
 
+
     address: "",
     city: "",
     state: "",
@@ -57,8 +58,10 @@ function PropertyDetails() {
         headers : {'Authorization' : token, 'Content-Type' : 'application/json'},
         body : JSON.stringify({title: title, smallDesc : smallDesc, detailedDesc : detailedDesc, price : parseInt(price), propertyType : propertyType, propertyCategory : propertyCategory, address: address, city : city, state: state, pincode : pincode, landmarks : landmarks})
     })
-    const data = response.json();
+    const data = await response.json();
     setProperty(data);
+    setIsEditing(false);
+
 
   }
   const handleDelete = async ()=>{
@@ -197,8 +200,8 @@ function PropertyDetails() {
           <label className="block text-gray-600 mb-2">Category</label>
           <input
             type="text"
-            name="category"
-            value={formData.category}
+            name="propertyCategory"
+            value={formData.propertyCategory}
             readOnly={!isEditing}
             className={`w-full p-3 rounded-lg border ${
               isEditing ? "border-amber-500 bg-white" : "border-gray-300 bg-gray-50"

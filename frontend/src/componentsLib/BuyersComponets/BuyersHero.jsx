@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, MapPin, Home, SlidersHorizontal } from "lucide-react";
 import FilterBar from "./FilterBar";
+import Category from "../LandingPageComps/Category";
 
-function BuyersHero() {
+function BuyersHero({fetchData}) {
+  const [category, setCategory] = useState("")
+  
+  const handleClick = async ()=>{
+    fetchData(category);
+
+
+  }
    
   return (
     <div className="min-h-screen w-full bg-white">
@@ -55,16 +63,16 @@ function BuyersHero() {
 
             <div className="hidden md:flex items-center gap-2 flex-1 px-4 border-l">
               <Home className="h-5 w-5 text-amber-500" />
-              <select className="w-full bg-transparent focus:outline-none text-gray-700">
-                <option>Property Type</option>
-                <option>Apartment</option>
-                <option>Villa</option>
-                <option>Plot</option>
-                <option>Commercial</option>
+              <select className="w-full bg-transparent focus:outline-none text-gray-700" onChange={(e)=>{setCategory(e.target.value); }}>
+                <option value="">Property Type</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Villa">Villa</option>
+                <option value="Plot">Plot</option>
+                <option value="Commercial">Commercial</option>
               </select>
             </div>
 
-            <button className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-full font-medium flex items-center gap-2 transition">
+            <button className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-full font-medium flex items-center gap-2 transition" onClick={handleClick}>
               <Search className="h-5 w-5" />
               Search
             </button>

@@ -22,7 +22,7 @@ router.get('/', async (req,res)=>{
 
 //For post req
 router.post('/data',async (req,res)=>{
-    const {title, smallDesc, detailedDesc,price, propertyType, propertyCategory, address, city, state, pincode, landmarks} = req.body;
+    const {title, smallDesc, detailedDesc,price, propertyType, propertyCategory,area, bedrooms, bathrooms, balconies, floor, totalFloors, furnishing, parking, contactName, contactPhone, contactEmail,  address, city, state, pincode, landmarks} = req.body;
     try {
        const newProps = await prisma.property.create({
             data : {
@@ -45,6 +45,9 @@ router.post('/data',async (req,res)=>{
                 state : state,
                 pincode : pincode, 
                 landmarks : landmarks,
+                contactName: contactName,
+                contactPhone: contactPhone,
+                contactEmail: contactEmail,
                 user: { connect: { id: req.userId } }
 
             }
@@ -79,9 +82,9 @@ router.get('/:id', async (req,res)=>{
 //For updation
 router.put('/:id', async (req,res)=>{
     const {id} = req.params;
-    const {title, smallDesc, detailedDesc,price, propertyType, propertyCategory,area, bedrooms, bathrooms, balconies, floor, totalFloors, furnishing, parking, address, city, state, pincode, landmarks} = req.body;
+    const {title, smallDesc, detailedDesc,price, propertyType, propertyCategory,area, bedrooms, bathrooms, balconies, floor, totalFloors, furnishing, parking, contactName, contactPhone, contactEmail, address, city, state, pincode, landmarks} = req.body;
     try {
-        const properties = await prisma.property.updateMany({
+        const properties = await prisma.property.update({
             where : {
                 user_id : req.userId,
                 id : parseInt(id),
@@ -107,7 +110,10 @@ router.put('/:id', async (req,res)=>{
                 city : city,
                 state : state,
                 pincode : pincode, 
-                landmarks : landmarks
+                landmarks : landmarks,
+                contactName: contactName,
+                contactPhone: contactPhone,
+                contactEmail: contactEmail,
 
 
             }
