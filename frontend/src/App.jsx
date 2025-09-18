@@ -9,6 +9,7 @@ import Feed from './pages/Feed'
 import OwnersPage from './pages/OwnersPage'
 import AuthSuccess from './pages/AuthSuccess'
 import PropertyPage from './pages/PropertyPage.jsx'
+import PropertyDetailsPage from './componentsLib/BuyersComponets/PropertyDetailsPage'
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
         <Route path='/owners' element={<OwnersPage/>}/>
         <Route path='/success' element={<AuthSuccess/>}/>
         <Route path='/owners/property/:id' element= {<PropertyPage/>}/>
+        <Route path='/propertydetails' element={<PropertyDetailsPage/>}/>
+
       </Routes>
 
     

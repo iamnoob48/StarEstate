@@ -310,8 +310,8 @@ export default function OwnersModal() {
                         onChange={handleChange}
                         className="w-full border-2 border-gray-200 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 p-3 rounded-xl transition-all duration-200 text-gray-800 bg-white"
                       >
-                        <option value="Rent">For Rent</option>
-                        <option value="Sale">For Sale</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Sale">Sale</option>
                       </select>
                     </div>
                   </div>
