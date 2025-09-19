@@ -21,6 +21,25 @@ router.get('/', async (req, res) => {
       res.status(500).json({ message: "Something went wrong" });  // <-- response sent again if error occurs
     }
   });
+
+  router.get('/:id', async (req,res)=>{
+    const {id} = req.params;
+    try {
+        const properties = await prisma.property.findFirst({
+            where : {
+                id : parseInt(id)
+            }
+        })
+        if(!properties){return res.json({message:"Property not found"})}
+        res.json(properties);
+
+        
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong" });
+        
+    }
+
+  })
   
 
 

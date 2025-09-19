@@ -24,7 +24,7 @@ function App() {
         <Route path='/owners' element={<OwnersPage/>}/>
         <Route path='/success' element={<AuthSuccess/>}/>
         <Route path='/owners/property/:id' element= {<PropertyPage/>}/>
-        <Route path='/propertydetails' element={<PropertyDetailsPage/>}/>
+        <Route path='/buyers/property/:id' element={<PropertyDetailsPage/>}/>
 
       </Routes>
 

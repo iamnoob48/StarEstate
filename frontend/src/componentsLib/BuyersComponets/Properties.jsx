@@ -10,7 +10,7 @@ function Properties({propertyData}) {
     <div className="max-w-6xl mx-auto px-6 py-12">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Properties</h2>
 
-      <BuyersCard property={propertyData}/>
+      <BuyersCard properties={propertyData}/>
     </div>
   );
 }

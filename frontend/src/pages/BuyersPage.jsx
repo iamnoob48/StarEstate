@@ -29,7 +29,7 @@ function BuyersPage() {
             <BuyersHero fetchData={fetchData} />
             <Properties propertyData={propertyData}/>
             <Pagination/>
-            <Route path='/propertydetails' element={<PropertyDetailsPage property={propertyData}/>}/>
+            
 
       
         </div>
