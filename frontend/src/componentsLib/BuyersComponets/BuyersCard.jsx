@@ -1,13 +1,12 @@
-"use client"
 import { motion } from "framer-motion"
 import { MapPin, Bed, Bath, Square, Heart } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
-function BuyersCard({ property }) {
+function BuyersCard({ properties }) {
   const navigate = useNavigate();
   return (
     <div className="space-y-6">
-      {property.map((property, idx) => (
+      {properties.map((property, idx) => (
         <motion.div
           key={property.id}
           className="bg-white rounded-2xl shadow-lg overflow-hidden border border-amber-50 hover:shadow-xl transition-all duration-300 group"
@@ -71,7 +70,7 @@ function BuyersCard({ property }) {
               </div>
 
               <div className="flex gap-3">
-                <button className="flex-1 py-2.5 px-4 rounded-xl bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg" onClick={()=>navigate('/propertydetails')}>
+                <button className="flex-1 py-2.5 px-4 rounded-xl bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg" onClick={()=>navigate(`/buyers/property/${property.id}`)}>
                   View Details
                 </button>
                 <button className="px-4 py-2.5 rounded-xl border-2 border-amber-600 text-amber-600 font-medium hover:bg-amber-50 transition-colors">

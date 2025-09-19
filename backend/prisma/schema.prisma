@@ -50,6 +50,7 @@ model Property {
   address       String
   city          String
   state         String
+  country       String    @default("India")
   pincode       String
   landmarks     String?
 
