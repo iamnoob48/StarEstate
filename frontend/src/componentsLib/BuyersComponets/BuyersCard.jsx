@@ -1,9 +1,31 @@
 import { motion } from "framer-motion"
-import { MapPin, Bed, Bath, Square, Heart } from "lucide-react"
+import { MapPin, Bed, Bath, Square, Heart, Star } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 function BuyersCard({ properties }) {
   const navigate = useNavigate();
+
+  // helper: render stars
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalf = rating % 1 !== 0;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<Star key={`full-${i}`} className="h-4 w-4 text-yellow-500 fill-yellow-500" />);
+    }
+
+    if (hasHalf) {
+      stars.push(<Star key="half" className="h-4 w-4 text-yellow-500 fill-yellow-300" />);
+    }
+
+    while (stars.length < 5) {
+      stars.push(<Star key={`empty-${stars.length}`} className="h-4 w-4 text-gray-300" />);
+    }
+
+    return stars;
+  };
+
   return (
     <div className="space-y-6">
       {properties.map((property, idx) => (
@@ -58,7 +80,7 @@ function BuyersCard({ properties }) {
                 </div>
                 <div className="flex items-center gap-2 text-gray-700">
                   <Square className="h-4 w-4 text-amber-600" />
-                  <span className="text-sm font-medium">{property.area+"sqft"}</span>
+                  <span className="text-sm font-medium">{property.area} sqft</span>
                 </div>
               </div>
 
@@ -69,13 +91,26 @@ function BuyersCard({ properties }) {
                 </p>
               </div>
 
-              <div className="flex gap-3">
-                <button className="flex-1 py-2.5 px-4 rounded-xl bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg" onClick={()=>navigate(`/buyers/property/${property.id}`)}>
-                  View Details
-                </button>
-                <button className="px-4 py-2.5 rounded-xl border-2 border-amber-600 text-amber-600 font-medium hover:bg-amber-50 transition-colors">
-                  Contact
-                </button>
+              <div className="flex items-center justify-between gap-3">
+                {/* Rating Section */}
+                {property.rating > 0.0 && (
+                  <div className="flex items-center gap-1">
+                  {renderStars(property.rating || 0)}
+                  <span className="text-sm text-gray-600 ml-2">{property.rating?.toFixed(1) || "0.0"}</span>
+                </div>
+                )}
+
+                <div className="flex gap-3">
+                  <button
+                    className="py-2.5 px-4 rounded-xl bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg"
+                    onClick={() => navigate(`/buyers/property/${property.id}`)}
+                  >
+                    View Details
+                  </button>
+                  <button className="px-4 py-2.5 rounded-xl border-2 border-amber-600 text-amber-600 font-medium hover:bg-amber-50 transition-colors">
+                    Contact
+                  </button>
+                </div>
               </div>
             </div>
           </div>

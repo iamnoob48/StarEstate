@@ -59,6 +59,9 @@ model Property {
   contactPhone  String?
   contactEmail  String?
 
+  rating        Float    @default(0.0)
+  ratingCount   Int      @default(0)
+
   isDeleted     Boolean   @default(false)
 
   user          User      @relation(fields: [user_id], references: [id])

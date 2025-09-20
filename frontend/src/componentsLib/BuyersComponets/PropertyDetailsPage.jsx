@@ -7,12 +7,19 @@ import { Badge } from "@/components/ui/badge"
 import Map from "./Map"
 import { useParams } from "react-router-dom"
 import { BookVisitDialog } from "./BookVisitDialog"
+import { format } from "date-fns";
+import RatingModal from "./RatingModal"
+
 
 
 export default function PropertyDetailsPage() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [property, setProperty] = useState({})
   const [isBooked, setIsBooked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [date,setDate] = useState("");
+  const [count, setCount] = useState(0);
+  
   const {id} = useParams();
   const token = localStorage.getItem('token');
 
@@ -32,12 +39,29 @@ export default function PropertyDetailsPage() {
 
   },[id,token])
 
-  const handleDateSelection = () => {
+  const handleRating = ()=>{
+    setIsOpen(true);
+  }
+
+  const handleDateSelection = (date) => {
+    setDate(date);
+
     setIsBooked(true)
   }
 
   const handleCancelBooking = () => {
     setIsBooked(false)
+  }
+  const handleSubmit = async (rating)=>{
+    await fetch(`/buyersData/${id}`,{
+      method : "PUT",
+      headers : {'Authorization': token, 'Content-Type': 'application/json'},
+      body: JSON.stringify({rating : rating})
+
+    })
+
+    console.log("Rating is : ",rating)
+
   }
 
   return (
@@ -113,20 +137,31 @@ export default function PropertyDetailsPage() {
           {/* Booking Card */}
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-amber-100">
       {!isBooked ? (
-        <BookVisitDialog onDateSelect={handleDateSelection} />
+        <div className="flex justify-between">
+          <BookVisitDialog onDateSelect={handleDateSelection} />
+          <Button className={'bg-green-500 '} onClick={handleRating}>Rate Your Visit</Button>
+          {isOpen && (
+            <div>
+              <RatingModal  open={isOpen} onClose={()=>setIsOpen(false)} onSubmit={handleSubmit}/>
+            </div>
+          )}
+        </div>
       ) : (
         <div className="space-y-4">
           <p className="text-gray-700 font-medium">
-            Your visit is already booked for property ID {property.id}
+            Your visit is already booked for date {date ? format(date, "PPP") : ""}
           </p>
+          <div className="flex justify-between">
           <Button
-            onClick={() => handleCancelBooking(property.id)}
+            onClick={handleCancelBooking}
             variant="outline"
-            className="w-full border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 font-semibold py-3 px-6 rounded-lg transition-all duration-200"
+            className=" border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 font-semibold py-3 px-6 rounded-lg transition-all duration-200"
           >
             <X className="w-5 h-5 mr-2" />
             Cancel Booking
           </Button>
+          <Button className={'bg-amber-400 text-gray-900 hover:bg-amber-300'}>Completed Visit</Button>
+          </div>
         </div>
       )}
     </div>

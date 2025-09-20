@@ -10,6 +10,7 @@ import OwnersPage from './pages/OwnersPage'
 import AuthSuccess from './pages/AuthSuccess'
 import PropertyPage from './pages/PropertyPage.jsx'
 import PropertyDetailsPage from './componentsLib/BuyersComponets/PropertyDetailsPage'
+import TenantsPage from './pages/TenantsPage'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage/>}/>
         <Route path='/buyers' element={<BuyersPage/>}/>
+        <Route path='/tenants' element={<TenantsPage/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<SignUp/>}/>
         <Route path='/feed' element={<Feed/>}/>
