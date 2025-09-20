@@ -3,6 +3,7 @@ import prisma from '../prismaClient.js';
 
 
 const router = express.Router();
+let count = 0;
 
 
 //To get all the property data
@@ -40,6 +41,45 @@ router.get('/', async (req, res) => {
     }
 
   })
+
+  router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    const { rating } = req.body
+  
+    try {
+      if (rating > 0) {
+        const property = await prisma.property.findUnique({
+          where: { id: parseInt(id) },
+          select: { rating: true, ratingCount: true }
+        })
+  
+        if (!property) {
+          return res.status(404).json({ message: "Property not found" })
+        }
+  
+        // Compute new average
+        const newCount = property.ratingCount + 1
+        const newAvg =
+          (property.rating * property.ratingCount + rating) / newCount
+  
+        await prisma.property.update({
+          where: { id: parseInt(id) },
+          data: {
+            rating: newAvg,
+            ratingCount: newCount
+          }
+        })
+  
+        return res.json({ message: "Rating has been updated", rating: newAvg })
+      }
+  
+      res.status(400).json({ message: "Invalid rating" })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: "Something went wrong" })
+    }
+  })
+  
   
 
 
