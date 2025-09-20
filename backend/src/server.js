@@ -5,6 +5,7 @@ import auth from './middleware/auth.js';
 import apiRoutes from './api/apiRoutes.js'
 import propertyRoutes from './routes/propertyRoutes.js'
 import buyersRoutes from './routes/buyersRoutes.js'
+import tenantRoutes from './routes/tenantRoutes.js'
 
 
 
@@ -20,6 +21,8 @@ app.use('/auth', authRoutes)
 app.use('/api',auth, apiRoutes)
 //Buyers Route
 app.use('/buyersData',buyersRoutes)
+//Tenant Routes
+app.use('/tenantData', tenantRoutes)
 //CRUD routes
 app.use('/property', auth, propertyRoutes)
 
