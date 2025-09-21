@@ -146,6 +146,30 @@ router.delete('/:id',async (req,res)=>{
 
 })
 
+//For sold out
+router.put('/sold/:id', async (req,res)=>{
+    const {isSoldOut} = req.body;
+    const {id} = req.params
+    try {
+        await prisma.property.update({
+            where : {
+                id : parseInt(id),
+                user_id : req.userId
+            },
+            data : {
+                isSoldOut : isSoldOut
+
+            }
+        })
+        res.json({message : "Property soldOut"})
+
+        
+    } catch (error) {
+        res.status(500).json({message : "SOmething went wrong"});
+        
+    }
+})
+
 
 
 export default router;

@@ -13,7 +13,8 @@ export default defineConfig({
       '/auth' : 'http://localhost:4003',
       '/property' : 'http://localhost:4003',
       '/buyersData' : "http://localhost:4003",
-      '/tenantData' : 'http://localhost:4003'
+      '/tenantData' : 'http://localhost:4003',
+      '/property/sold':'http://localhost:4003'
     }
 
   },
