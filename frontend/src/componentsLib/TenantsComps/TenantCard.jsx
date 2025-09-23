@@ -53,6 +53,15 @@ function TenantCard({ properties }) {
                 alt={property.title}
                 className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
+              {property.isSoldOut && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <img
+                    src="/images/image.png" // transparent PNG with “SOLD OUT”
+                    alt="Sold Out"
+                    className="w-40 h-40 opacity-80 rotate-[-20deg]"
+                  />
+                </div>
+              )}
               <button className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors">
                 <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors" />
               </button>
@@ -120,12 +129,16 @@ function TenantCard({ properties }) {
 
                 <div className="flex gap-3">
                   <button
-                    className="py-2.5 px-4 rounded-xl bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg"
+                    className="py-2.5 px-4 rounded-xl bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:border-0 disabled:text-black"
                     onClick={() => navigate(`/buyers/property/${property.id}`)}
+                    disabled={property.isSoldOut}
                   >
                     View Details
                   </button>
-                  <button className="px-4 py-2.5 rounded-xl border-2 border-amber-600 text-amber-600 font-medium hover:bg-amber-50 transition-colors">
+                  <button
+                    className="px-4 py-2.5 rounded-xl border-2 border-amber-600 text-amber-600 font-medium hover:bg-amber-50 transition-colors disabled:bg-gray-400 disabled:border-0 disabled:text-black"
+                    disabled={property.isSoldOut}
+                  >
                     Contact
                   </button>
                 </div>
