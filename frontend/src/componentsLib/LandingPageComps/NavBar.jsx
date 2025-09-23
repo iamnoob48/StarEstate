@@ -8,11 +8,14 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-} from "@/components/ui/resizable-navbar"
-import { useEffect, useState } from "react"
-import { useLocation, Link, useNavigate, data } from "react-router-dom" 
-import { UserCircleIcon } from '@heroicons/react/24/solid'
-
+} from "@/components/ui/resizable-navbar";
+import { useEffect, useState } from "react";
+import { useLocation, Link, useNavigate, data } from "react-router-dom";
+import {
+  UserCircleIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+} from "@heroicons/react/24/solid";
+import { Button } from "@/components/ui/button";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -22,73 +25,76 @@ function NavBar() {
     { name: "Buyers", link: "/buyers" },
     { name: "Tenants", link: "/tenants" },
     { name: "Owners", link: "/owners" },
-  ]
+  ];
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const token = localStorage.getItem('token');
-  const [username, setUsername] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const token = localStorage.getItem("token");
+  const [username, setUsername] = useState([]);
   const handleClick = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem("token");
     window.location.reload();
-  }
+  };
 
   const fetchUsername = async () => {
-    const response = await fetch('/api/userdata',{
-      headers : {'Authorization' : token}
-    })
+    const response = await fetch("/api/userdata", {
+      headers: { Authorization: token },
+    });
     const data = await response.json();
-    setUsername(data.username);
-  }
+    setUsername(data);
+  };
 
-  useEffect(()=>{
-    if(token){
+  useEffect(() => {
+    if (token) {
       fetchUsername();
-
     }
-    
-
-  },[username])
+  }, [username]);
 
   return (
     <div className="w-full p-3">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavbarLogo/>
-          
+          <NavbarLogo />
 
           {/* Custom NavItems with active highlight */}
-          <NavItems items={navItems}/>
+          <NavItems items={navItems} />
 
           {token ? (
             <div className="flex items-center gap-3">
-            <button
-             onClick={handleClick}
-              className="relative z-50 flex items-center gap-2 px-3 py-1 rounded-full bg-white hover:bg-gray-700 transition"
-            >
-              <UserCircleIcon className="h-8 w-8 text-amber-400 hover:cursor-pointer" />
-              <span className="text-sm font-medium text-black">
-                {username}
-              </span>
-            </button>
-          </div>
+              <button
+                onClick={handleClick}
+                className="relative z-50 flex items-center gap-2 px-3 py-1 rounded-full bg-white hover:bg-gray-700 transition"
+              >
+                <UserCircleIcon className="h-8 w-8 text-amber-400 hover:cursor-pointer" />
+                <span className="text-sm font-medium text-black">
+                  {username.username}
+                </span>
+              </button>
+
+              <Button
+                className="bg-amber-400 relative z-50"
+                onClick={() => navigate("/messages")}
+              >
+                <ChatBubbleOvalLeftEllipsisIcon />
+              </Button>
+            </div>
           ) : (
             <div className="flex items-center gap-4">
-            <NavbarButton
-              className="bg-amber-300"
-              variant="primary"
-              onClick={()=>navigate('/login')}
-            >
-              Login
-            </NavbarButton>
-            <NavbarButton
-              className="bg-white text-black border hover:shadow-lg hover:shadow-amber-200"
-              variant="primary"
-              onClick={()=>navigate('/register')}
-            >
-              Register
-            </NavbarButton>
-          </div>
+              <NavbarButton
+                className="bg-amber-300"
+                variant="primary"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </NavbarButton>
+              <NavbarButton
+                className="bg-white text-black border hover:shadow-lg hover:shadow-amber-200"
+                variant="primary"
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </NavbarButton>
+            </div>
           )}
         </NavBody>
 
@@ -109,7 +115,7 @@ function NavBar() {
             onClose={() => setIsMobileMenuOpen(false)}
           >
             {navItems.map((item, idx) => {
-              const isActive = location.pathname === item.link
+              const isActive = location.pathname === item.link;
               return (
                 <Link
                   key={`mobile-link-${idx}`}
@@ -123,7 +129,7 @@ function NavBar() {
                 >
                   {item.name}
                 </Link>
-              )
+              );
             })}
 
             <div className="flex w-full flex-col gap-4 mt-4">
@@ -146,7 +152,7 @@ function NavBar() {
         </MobileNav>
       </Navbar>
     </div>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

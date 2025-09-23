@@ -20,13 +20,15 @@ enum Gender {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  username String     @unique
-  email    String     @unique
-  gender   Gender?
-  password String?
-  googleId String?    @unique
-  property Property[]
+  id               Int        @id @default(autoincrement())
+  username         String     @unique
+  email            String     @unique
+  gender           Gender?
+  password         String?
+  googleId         String?    @unique
+  property         Property[]
+  sentMessages     Message[]  @relation("SentMessages")
+  receivedMessages Message[]  @relation("ReceivedMessages")
 }
 
 model Property {
@@ -76,4 +78,16 @@ model Image {
   image_url   String
 
   property Property @relation(fields: [property_id], references: [id])
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  senderId   Int
+  receiverId Int
+  content    String
+  createdAt  DateTime @default(now())
+  isRead     Boolean  @default(false)
+
+  sender   User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
 }

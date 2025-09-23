@@ -1,6 +1,6 @@
-import { motion } from "framer-motion"
-import { MapPin, Bed, Bath, Square, Heart, Star } from "lucide-react"
-import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion";
+import { MapPin, Bed, Bath, Square, Heart, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function BuyersCard({ properties }) {
   const navigate = useNavigate();
@@ -12,15 +12,24 @@ function BuyersCard({ properties }) {
     const hasHalf = rating % 1 !== 0;
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<Star key={`full-${i}`} className="h-4 w-4 text-yellow-500 fill-yellow-500" />);
+      stars.push(
+        <Star
+          key={`full-${i}`}
+          className="h-4 w-4 text-yellow-500 fill-yellow-500"
+        />
+      );
     }
 
     if (hasHalf) {
-      stars.push(<Star key="half" className="h-4 w-4 text-yellow-500 fill-yellow-300" />);
+      stars.push(
+        <Star key="half" className="h-4 w-4 text-yellow-500 fill-yellow-300" />
+      );
     }
 
     while (stars.length < 5) {
-      stars.push(<Star key={`empty-${stars.length}`} className="h-4 w-4 text-gray-300" />);
+      stars.push(
+        <Star key={`empty-${stars.length}`} className="h-4 w-4 text-gray-300" />
+      );
     }
 
     return stars;
@@ -72,22 +81,29 @@ function BuyersCard({ properties }) {
               <div className="flex items-center gap-6 py-4 border-y border-gray-100">
                 <div className="flex items-center gap-2 text-gray-700">
                   <Bed className="h-4 w-4 text-amber-600" />
-                  <span className="text-sm font-medium">{property.bedrooms} Beds</span>
+                  <span className="text-sm font-medium">
+                    {property.bedrooms} Beds
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-700">
                   <Bath className="h-4 w-4 text-amber-600" />
-                  <span className="text-sm font-medium">{property.bathrooms} Baths</span>
+                  <span className="text-sm font-medium">
+                    {property.bathrooms} Baths
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-700">
                   <Square className="h-4 w-4 text-amber-600" />
-                  <span className="text-sm font-medium">{property.area} sqft</span>
+                  <span className="text-sm font-medium">
+                    {property.area} sqft
+                  </span>
                 </div>
               </div>
 
               <div className="mt-4 mb-5">
                 <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
-                  Beautiful {property.bedrooms} bedroom property with modern amenities and excellent connectivity.
-                  Perfect for families looking for comfort and convenience.
+                  Beautiful {property.bedrooms} bedroom property with modern
+                  amenities and excellent connectivity. Perfect for families
+                  looking for comfort and convenience.
                 </p>
               </div>
 
@@ -95,9 +111,11 @@ function BuyersCard({ properties }) {
                 {/* Rating Section */}
                 {property.rating > 0.0 && (
                   <div className="flex items-center gap-1">
-                  {renderStars(property.rating || 0)}
-                  <span className="text-sm text-gray-600 ml-2">{property.rating?.toFixed(1) || "0.0"}</span>
-                </div>
+                    {renderStars(property.rating || 0)}
+                    <span className="text-sm text-gray-600 ml-2">
+                      {property.rating?.toFixed(1) || "0.0"}
+                    </span>
+                  </div>
                 )}
 
                 <div className="flex gap-3">
@@ -111,13 +129,23 @@ function BuyersCard({ properties }) {
                     Contact
                   </button>
                 </div>
+                {property.isSoldOut && (
+                  <motion.img
+                    src="/images/Soldout.jpg" // or wherever your uploaded image is served
+                    alt="Sold Out"
+                    className="absolute bottom-4 right-4 w-28 opacity-90"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                  />
+                )}
               </div>
             </div>
           </div>
         </motion.div>
       ))}
     </div>
-  )
+  );
 }
 
-export default BuyersCard
+export default BuyersCard;

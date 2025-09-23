@@ -12,10 +12,25 @@ router.get('/userdata', async (req,res)=>{
 
             }
         })
-        res.json({username:user.username})
+        res.json(user);
         
     } catch (err) {
         res.send(500).json({message:"Server Problem"})
+        
+    }
+})
+
+//For getting users
+router.get('/users', async(req,res)=>{
+    try {
+        const user = await prisma.user.findMany({
+            where : {
+                id : {not : req.userId}
+            }
+        })
+        res.json(user);
+    } catch (error) {
+        res.send(500).json({message: "Internal isssue"})
         
     }
 })
